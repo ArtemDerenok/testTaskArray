@@ -30,11 +30,11 @@ for (let i = 0; i < 10; i++) {
       ++cntPos;
       if (subArr[y - 1] < 0 || y === 9) {
         if (cntNeg >= 3) {
-          cntRepeatedNum += cntNeg - 2;
+          cntRepeatedNum += Math.floor(cntNeg / 3);
         }
 
         if (y === 9 && cntPos >= 3) {
-          cntRepeatedNum += cntPos - 2;
+          cntRepeatedNum += Math.floor(cntPos / 3);
         }
 
         cntNeg = 0;
@@ -44,13 +44,13 @@ for (let i = 0; i < 10; i++) {
     if (randomNum < 0) {
       //Повторение отрицательных чисел
       ++cntNeg;
-      if (subArr[y - 1] > 0 || y === 9) {
+      if (subArr[y - 1] >= 0 || y === 9) {
         if (cntPos >= 3) {
-          cntRepeatedNum += cntPos - 2;
+          cntRepeatedNum += Math.floor(cntPos / 3);
         }
 
         if (y === 9 && cntNeg >= 3) {
-          cntRepeatedNum += cntNeg - 2;
+          cntRepeatedNum += Math.floor(cntNeg / 3);
         }
 
         cntPos = 0;
@@ -81,13 +81,19 @@ arr.forEach((elem, index) => {
   if (index === minValue.index) {
     tableObject["*"] = elem;
     tableObject["*"].push({
-      min: minPositiveNumMap[String(index)].minNum,
+      min:
+        minPositiveNumMap[String(index)].minNum === 101
+          ? null
+          : minPositiveNumMap[String(index)].minNum,
       replace: repeatedMap[String(index)].repeated,
     });
   } else {
     tableObject[index] = elem;
     tableObject[index].push({
-      min: minPositiveNumMap[String(index)].minNum,
+      min:
+        minPositiveNumMap[String(index)].minNum === 101
+          ? null
+          : minPositiveNumMap[String(index)].minNum,
       replace: repeatedMap[String(index)].repeated,
     });
   }
